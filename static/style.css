@@ -1,0 +1,57 @@
+/* font-family: 'Arima', cursive;
+font-family: 'Boogaloo', cursive;
+font-family: 'Edu TAS Beginner', cursive;
+font-family: 'Great Vibes', cursive;
+font-family: 'Josefin Sans', sans-serif;
+font-family: 'Jost', sans-serif;
+font-family: 'Lexend', sans-serif; */
+body{
+    overflow-x: hidden;
+}
+
+span{
+    font-family: 'Great Vibes', cursive;
+    font-weight: bold;
+    font-size: 40px;
+    color: rgb(127, 218, 235);
+}
+
+.btn-auto{
+    background-color: rgb(127, 218, 235);
+    border-radius: 10px;
+}
+
+.patient-register{
+
+    background: rgb(4,240,221);
+    background: linear-gradient(90deg, rgb(243, 248, 248) 40%, rgba(0,212,255,1) 65%, rgba(4,179,240,1) 91%);
+}
+
+.formreg{
+    background-color: rgb(243, 248, 248) ;
+    margin-top: 5px;
+ border-radius: 10%;
+ border: 2px solid rgba(4,179,240,1);
+ border-color: rgb(4,240,221) solid;
+ border-right: 3px;
+   
+    
+}
+
+.sign{
+    font-family: 'Arima', cursive;
+    font-weight: bold;
+}
+.captiony{
+    font-family: 'Arima', cursive;
+    font-size: 20px;
+    color: black;
+}
+
+.login{
+    background-image: url(../static/images/login2.webp);
+    background-repeat: no-repeat;
+    background-image: cover;
+    background-size: cover;
+}
+
