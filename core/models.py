@@ -39,20 +39,22 @@ class Doctorblog(models.Model):
     #appointment models
 
 TIMESLOT_LIST = (
-        ('1', '09:00 - 10:00'),
-        ('2', '10:00 - 11:00'),
+        ( '1','09:00 - 10:00'),
+        ( '2','10:00 - 11:00'),
         ('3', '11:00 - 12:00'),
-        ('4', '12:00 - 13:00'),
-        ('5', '13:00 - 14:00'),
+        ('4', '2:00 - 3:00'),
+        ('5', '3:00 - 4:00'),
     )
 class Patientappointment(models.Model):
-    doctor = models.ForeignKey('Doctor', on_delete=models.CASCADE, null=True, related_name='doctor_appointments')
-    date = models.DateField()
+    doctor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, related_name='doctor_appointments')
+    date = models.DateTimeField()
     time = models.CharField(max_length=50, choices=TIMESLOT_LIST, null=True)
     reason_for_visit = models.CharField(max_length=255, null=True)
     patient = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, related_name='patient_appointments')
-    def __str__(self):
-        return self.patient.username
+    
+
+
+    
 TYPE_TEST= (
         ('Comprehensive', 'Comprehensive Test'),
         ('Basic Test','Basic test'),
@@ -66,7 +68,7 @@ class LabTest(models.Model):
     test = models.CharField(max_length=50, choices=TYPE_TEST, null=True)
     gender = models.CharField(max_length=50,choices=GENDER_CHOICES)
     phone_number = models.CharField(max_length=100)
-    date_of_birth = models.DateField()
+    date_of_birth = models.DateTimeField()
     def __str__(self):
         return self.patient.username   
     
