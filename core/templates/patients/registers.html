@@ -1,0 +1,54 @@
+{%extends 'base.html'%}
+{%load static%}
+
+{% load crispy_forms_tags %}
+
+{% load bootstrap %}
+{% block content %}
+{%include 'navbar.html'%}
+<body class='patient-register'>
+  
+    <div class="container">
+    <div class="row">
+      <div class="col-sm-5 col-md-4">
+        <img src="{% static 'images/image1.png'%}" style="height:500px; width:450px">
+      </div>
+      <div class="col-sm-5 offset-sm-2 col-md-8 offset-md-0 ">
+        
+        <div class="row formreg sign">
+          <h3 class="text-center sign">Sign up as Patient</h3>
+          <h6 class="text-center sign">Are you a doctor?  <a href={%url 'api:doctors'%}>Sign up here</a></h6>
+          <div class="col-sm-5 col-md-6 ml-3">
+           
+          <form method="post" novalidate>
+            
+              {% csrf_token %}
+          {{ form.username|as_crispy_field }}
+          {{ form.first_name|as_crispy_field }}
+          {{ form.last_name|as_crispy_field }}
+          {{ form.email|as_crispy_field }}
+          </div>
+          <div class="col-sm-5 offset-sm-2 col-md-6 offset-md-0">
+            
+            {{ form.password1|as_crispy_field }}
+            {{ form.password2|as_crispy_field }} 
+            <button type="submit" class="btn btn-auto mb-3">register</button>
+        </form>
+        
+          </div>
+          
+        </div>
+        
+          
+          
+      
+        
+      </div>
+    </div>
+  </div>
+
+    
+      
+    
+   
+{% endblock %}

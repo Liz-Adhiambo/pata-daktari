@@ -1,0 +1,28 @@
+{%extends 'base.html'%}
+{%load static %}
+<body>
+ 
+  
+  
+
+{%block content%}
+{%include 'navbar.html'%}
+
+{%for blog in blogs%}
+
+        <article class="media content-section">
+          <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ blog.doctor }}</a>
+              <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+            </div>
+            <h2><a class="article-title" href="{% url 'api:post-detail' blog.id %}">{{ blog.title }}</a></h2>
+            <p class="article-content">{{ post.content }}yikes</p>
+          </div>
+        </article>
+        
+        
+    {%endfor %}
+
+    {%endblock content%}
