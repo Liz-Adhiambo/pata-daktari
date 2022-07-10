@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.db import transaction
 from crispy_forms.layout import Layout, Div
 from .models import  LabTest, Patient, Patientappointment, User, Doctor
+from bootstrap_datepicker_plus.widgets import DatePickerInput, TimePickerInput, DateTimePickerInput, MonthPickerInput, YearPickerInput
 
 class DoctorRegisterForm(UserCreationForm):
     first_name = forms.CharField(required=True)
@@ -72,7 +73,10 @@ class PatientRegisterForm(UserCreationForm):
 class BookAppointmentForm(forms.ModelForm):
     class Meta:
         model = Patientappointment
-        fields = ('__all__')
+        fields = ['doctor', 'date', 'time', 'reason_for_visit']
+    #     date = forms.DateField(
+    #     widget=DatePickerInput(format='%m/%d/%Y')
+    # )
 class LabTestForm(forms.ModelForm):
     class Meta:
         model = LabTest

@@ -6,16 +6,7 @@
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=Sacramento&display=swap');
-    body{
-        background-color: #212224;
-        color: #fff;
-        transition: 0.5s;
-        -webkit-transition: 0.5s;
-        -moz-transition: 0.5s;
-        -ms-transition: 0.5s;
-        -o-transition: 0.5s;
-        
-    }
+    
     
     .title{
         font-family: 'Amatic SC', cursive;
@@ -111,6 +102,21 @@
     #about{
         font-family: 'Lexend', sans-serif;
     }
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+      
+      td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+      
+      tr:nth-child(even) {
+        background-color: #dddddd;
+      }
       
     
 
@@ -118,11 +124,7 @@
     <body>
 
         <div class="container">
-            <div class="header d-flex justify-content-between">
-                <h6><h6>
-                <span class="mt-4 fs-3 dark toggle"><i class="fas fa-moon d-none" id="dark" title="Switch to Dark Mode"></i></span>          
-                <span class="mt-4 fs-3 light toggle" id="light"><i class="fas fa-sun" title="Switch to Light Mode"></i></span>          
-            </div>
+            
             <center>
                 <div class="main">
                     <div class="">
@@ -152,9 +154,10 @@
             <div class="row align-items-center flex-row-reverse">
                 <div class="col">
                     <div class="about-text go-to">
-                        <h3 class="dark-color">About Me</h3>
+                        <h3 class="dark-color text-center">About Me</h3>
+                        <hr>
                         
-                        <p>{{username.doctor.description}}</p>
+                        <p >{{username.doctor.description}}</p>
                         <div class="row about-list">
                             <div class="col-md-6">
                                 <div class="media">
@@ -190,70 +193,55 @@
                 </div>
                 
             </div>
-            <div class="counter">
-                <div class="row">
-                    <div class="col-6 col-lg-3">
-                        <div class="count-data text-center">
-                            <h6 class="count h2" data-to="500" data-speed="500">500</h6>
-                            <p class="m-0px font-w-600">Happy Clients</p>
-                        </div>
-                    </div>
-                    <div class="col-6 col-lg-3">
-                        <div class="count-data text-center">
-                            <h6 class="count h2" data-to="150" data-speed="150">150</h6>
-                            <p class="m-0px font-w-600">Project Completed</p>
-                        </div>
-                    </div>
-                    <div class="col-6 col-lg-3">
-                        <div class="count-data text-center">
-                            <h6 class="count h2" data-to="850" data-speed="850">850</h6>
-                            <p class="m-0px font-w-600">Photo Capture</p>
-                        </div>
-                    </div>
-                    <div class="col-6 col-lg-3">
-                        <div class="count-data text-center">
-                            <h6 class="count h2" data-to="190" data-speed="190">190</h6>
-                            <p class="m-0px font-w-600">Telephonic Talk</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
+            
         </div>
     </section>
+    <hr>
 
-    <h3>appointments</h3>
-    {%for appointment in appointments%}
-    these are the appointments
-    {{appointment.doctor}}
-    {{appointment.patient}}
+    <h3 class='text-center'>Your Appointments</h3>
 
-    {%endfor%}
+    <table>
+        <tr>
+          <th>Patient's Name</th>
+          <th>Contact</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Reason for visit</th>
+        </tr>
+        {%for appointment in appointments%}
+    
+        <tr>
+          <td>{{appointment.patient}}</td>
+          <td>{{appointment.phonenumber}}</td>
+          <td>{{appointment.date}}</td>
+          <td> 
+        {% if appointment.time == '1' %}
+            <p >09:00-10:00</p>
+        {% elif appointment.time == '2' %}
+            <p >10:00-11:00</p>
+        {% elif appointment.time == '3' %}
+            <p >11:00-12:00</p>
+        {% elif appointment.time == '4' %}
+            <p >2:00-3:00</p>
+        {% else %}
+            <p >3:00-4:00</p>
+        {% endif %}
+            
+        </td>
+        <td>{{appointment.reason_for_visit}}</td>
+        </tr>
+        {%endfor%}
+      </table>
+      
+    
+    
+   
+
+    
 </div>
 
-<script>
-    const dark = document.getElementById('dark')
-const light = document.getElementById('light')
-const catty = document.getElementById('cattyName')
 
-function toggleDark(){
-    dark.classList.add('d-none')
-    light.classList.remove('d-none')
-    document.body.style.backgroundColor = "#212224"
-    document.body.style.color = "#fff"
-    catty.style.color = "#fff"
-}
-
-dark.addEventListener('click', toggleDark)
-
-function toggleLight(){
-    light.classList.add('d-none')
-    dark.classList.remove('d-none')
-    document.body.style.backgroundColor = "#fff"
-    document.body.style.color = "#000"
-    catty.style.color = "#000"
-}
-light.addEventListener('click', toggleLight)
-    </script>
 
 </body>
 

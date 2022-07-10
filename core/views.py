@@ -75,12 +75,23 @@ def login_view(request):
                 return redirect('core:doctorprofile',username)
             elif user is not None and user.is_patient:
                 login(request, user)
-                return redirect('/')
+                return redirect('core:alldoctors')
             else:
                 msg= 'invalid credentials'
         else:
             msg = 'error validating form'
     return render(request, 'login.html', {'form': form, 'msg': msg})
+
+def all_doctors(request):
+
+    doctors=Doctor.objects.all()
+    context={
+        'doctors':doctors
+    }
+
+    return render(request,'patients/alldoctors.html',context)
+
+
 
 def doctor_profile(request, username):  
     obj = User.objects.get(username=username)  
@@ -92,6 +103,18 @@ def doctor_profile(request, username):
     }
    
     return render(request, 'doctors/doctorprofile.html',  context)
+
+#patients profile
+def patient_profile(request, username):  
+    obj = User.objects.get(username=username)  
+    appointments=Patientappointment.objects.filter(patient=obj.id)
+    context = {
+        'username': obj, 
+        'appointments': appointments
+        
+    }
+   
+    return render(request, 'patients/patientprofile.html',  context)
 
 def doctorblog_list(request):
     
@@ -160,16 +183,21 @@ def logout(request):
     return redirect('core:indexy')
 
 # appointemnt views
-def Appointment(request):
-    if request.method == "POST":
-        form=BookAppointmentForm(request.POST, request.FILES)
-        if form.is_valid():
-            data = form.save(commit=False)
-            data.save()
-            return redirect('index')
-        else:
-            form=BookAppointmentForm()
-    return render(request, 'bookappointment.html',{'form':BookAppointmentForm})
+class AppointmentCreateView(LoginRequiredMixin, CreateView):
+    model = Patientappointment
+    template_name = 'bookappointment.html'
+    fields = ['doctor','date', 'time','reason_for_visit']
+
+    def form_valid(self, form):
+        form.instance.patient = self.request.user 
+        return super().form_valid(form)
+    def get_success_url(self): # new
+        
+             return reverse('api:indexy')
+
+
+
+
 
 
 #api views

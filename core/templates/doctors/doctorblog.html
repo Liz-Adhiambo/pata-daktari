@@ -1,28 +1,94 @@
 {%extends 'base.html'%}
 {%load static %}
+
+
 <body>
- 
-  
-  
-
 {%block content%}
+  <header>
+    <!-- Intro settings -->
+    <style>
+      #intro {
+        /* Margin to fix overlapping fixed navbar */
+        margin-top: 58px;
+      }
+      @media (max-width: 991px) {
+        #intro {
+          /* Margin to fix overlapping fixed navbar */
+          margin-top: 45px;
+        }
+      }
+    </style>
+
+
+    <!-- Navbar -->
 {%include 'navbar.html'%}
-
-{%for blog in blogs%}
-
-        <article class="media content-section">
-          <img class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
-          <div class="media-body">
-            <div class="article-metadata">
-              <a class="mr-2" href="#">{{ blog.doctor }}</a>
-              <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+    <!-- Jumbotron -->
+    <header>
+      <!-- Navbar -->
+      
+      <!-- Navbar -->
+    
+      <!-- Background image -->
+      <div
+        class="p-3 text-center bg-image jumbo"
+        
+          
+      >
+        <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
+          <div class="d-flex justify-content-center align-items-center h-100">
+            <div class="text-white">
+              <h1 class="mb-3">Pata-Daktari Blogs</h1>
+              
+              
+             
             </div>
-            <h2><a class="article-title" href="{% url 'api:post-detail' blog.id %}">{{ blog.title }}</a></h2>
-            <p class="article-content">{{ post.content }}yikes</p>
           </div>
-        </article>
-        
-        
-    {%endfor %}
+        </div>
+      </div>
+      <!-- Background image -->
+    </header>
+    <!-- Jumbotron -->
+
+  <!--Main Navigation-->
+
+  <!--Main layout-->
+  <main class="my-5">
+    <div class="container">
+      <div class="row align-items-start  mb-3" style="height: 100px;">
+     
+        {%for blog in blogs%}
+        <div class="col-md-3 mb-3"> 
+            <div class="">
+              <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                <img src="https://mdbootstrap.com/img/new/standard/nature/184.jpg" class="img-fluid" />
+                
+              </div>
+              <div class="">
+                <h5 class="card-title">{{blog.title}}</h5>
+                <p class="card-text">
+                  Some quick example text to build on the card title and make up the bulk of the
+                  card's content.
+                </p>
+                <a href="{%url 'api:post-detail' blog.id%}" class="btn btn-primary">Read</a>
+              </div>
+            </div>
+            
+
+        </div>
+        {%endfor%}
+        <div class="col">One of three columns</div>
+        <div class="col">One of three columns</div>
+      </div>
+
+    </div>
+      <!--Section: Content-->
+     
+      <!--Section: Content-->
+
+      
+  </main>
+  <!--Main layout-->
+</body>
+
 
     {%endblock content%}

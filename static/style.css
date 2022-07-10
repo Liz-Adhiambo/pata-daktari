@@ -55,3 +55,8 @@ span{
     background-size: cover;
 }
 
+.jumbo{
+    background-image: url('../static/images/blogp1.jpg');
+    height: 400px;
+    
+}
