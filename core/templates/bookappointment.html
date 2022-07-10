@@ -1,0 +1,20 @@
+{%extends 'base.html'%}
+{%load static%}
+{% load bootstrap %}
+{% load crispy_forms_tags %}
+
+{% load bootstrap %}
+{% block content %}
+{%include 'navbar.html'%}
+
+<div class='container'>
+    <form method="post" novalidate>
+               
+        {% csrf_token %}
+        {{form|crispy}}
+    <button type="submit" class="btn btn-auto mb-3">register</button>
+    </form>
+
+<div>    
+   
+{% endblock %}
