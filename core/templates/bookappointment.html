@@ -3,17 +3,36 @@
 {% load bootstrap %}
 {% load crispy_forms_tags %}
 
-{% load bootstrap %}
+{% load bootstrap5 %}
 {% block content %}
 {%include 'navbar.html'%}
 
 <div class='container'>
-    <form method="post" novalidate>
-               
-        {% csrf_token %}
-        {{form|crispy}}
-    <button type="submit" class="btn btn-auto mb-3">register</button>
-    </form>
+    <div class="row">
+        <div class='col-md-7'>
+            <img src="{% static 'images/calender2.webp'%}" style="height:600px; width:700px;">
+
+        </div>
+        <div class='col-md-5'>
+            <div class='appo'>
+                <h4 class='text-center'>Make your Appointment</h4>
+                <form method="post" novalidate>
+                
+                    {% csrf_token %}
+                    <div class="col-md-4 col-sm-12 form-group" data-children-count="1">
+            
+                        {{form|crispy}}
+                                                                            
+                    </div> 
+                            
+                <button type="submit" class="btn btn-auto mb-3 mt-3">Book Now</button>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+   
 
 <div>    
    
