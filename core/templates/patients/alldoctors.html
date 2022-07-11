@@ -36,7 +36,48 @@
         </div>
         {%endfor%} 
 
+
+
     </div>
+    {% if doctors.has_other_pages %}
+    <nav>
+      <ul class="pagination justify-content-center">
+        {% if doctors.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ doctors.previous_page_number }}" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+        {% else %}
+          <li class="page-item disabled">
+              <span class="page-link" aria-hidden="true">&laquo;</span>
+          </li>
+        {% endif %}
+
+        {% for p in doctors.paginator.page_range %}
+          {% if doctors.number == p %}
+            <li class="page-item"><a class="page-link" style="color: red;" href="#">{{ p }}</a></li>
+          {% else %}
+            <li class="page-item"><a class="page-link" href="?page={{ p }}">{{ p }}</a></li>
+          {% endif %}
+        {% endfor %}
+
+        {% if doctors.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ doctors.next_page_number }}" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        {% else %}
+          <li class="page-item disabled">
+            <span class="page-link" aria-hidden="true">&raquo;</span>
+          </li>
+        {% endif %}
+    </ul>
+    </nav>
+  {% endif %}
+
+
   </section><!-- End Doctors Section -->  
 
 

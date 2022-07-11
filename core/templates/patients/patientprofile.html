@@ -211,7 +211,7 @@
         <tr>
           <td>{{appointment.doctor}}</td>
           <td>{{appointment.doctor.phone}}</td>
-          <td>{{appointment.date}}</td>
+          <td>{{appointment.date|date:"F d, Y"}}</td>
           <td> 
         {% if appointment.time == '1' %}
             <p >09:00-10:00</p>
@@ -230,6 +230,27 @@
         </tr>
         {%endfor%}
       </table>
+
+
+
+      <h3 class='text-center'>Your Booked Labtests</h3>
+
+    <table>
+        <tr>
+          <th>Test</th>
+          
+        </tr>
+        {%for labtest in labtests%}
+    
+        <tr>
+          <td>{{labtest.test}}</td>
+          
+            
+        
+        </tr>
+        {%endfor%}
+      </table>
+      
       
     
     
