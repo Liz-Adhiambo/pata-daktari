@@ -1,0 +1,39 @@
+{%extends 'base.html'%}
+{%load static%}
+{% load bootstrap %}
+{% load crispy_forms_tags %}
+
+{% load bootstrap5 %}
+{% block content %}
+{%include 'navbar.html'%}
+
+<div class='container'>
+    <div class="row">
+        <div class='col-md-7'>
+            <img src="{% static 'images/labt.webp'%}" style="height:600px; width:700px;">
+
+        </div>
+        <div class='col-md-5'>
+            <div class='app'>
+                <h4 class='text-center heading'>Book your Labtest</h4>
+                <form method="post" novalidate>
+                
+                    {% csrf_token %}
+                    <div class="col-md-4 col-sm-12 form-group" data-children-count="1">
+            
+                        {{form|crispy}}
+                                                                            
+                    </div> 
+                            
+                <button type="submit" class="btn btn-auto mb-3 mt-3">Book Now</button>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+   
+
+<div>    
+   
+{% endblock %}
