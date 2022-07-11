@@ -209,12 +209,12 @@
           <th>Time</th>
           <th>Reason for visit</th>
         </tr>
-        {%for appointment in appointments%}
+         {%for appointment in appointments%}
     
         <tr>
           <td>{{appointment.patient}}</td>
           <td>{{appointment.phonenumber}}</td>
-          <td>{{appointment.date}}</td>
+          <td>{{appointment.date|date:"F d, Y"}}</td>
           <td> 
         {% if appointment.time == '1' %}
             <p >09:00-10:00</p>
@@ -226,12 +226,12 @@
             <p >2:00-3:00</p>
         {% else %}
             <p >3:00-4:00</p>
-        {% endif %}
+        {% endif %} 
             
         </td>
         <td>{{appointment.reason_for_visit}}</td>
         </tr>
-        {%endfor%}
+        {%endfor%} 
       </table>
       
     
