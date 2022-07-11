@@ -1,5 +1,8 @@
+import datetime
 from django import forms
+from crispy_forms.bootstrap import PrependedText
 from crispy_forms.helper import FormHelper
+from django.conf import settings
 from django.contrib.auth.forms import UserCreationForm
 from django.db import transaction
 from crispy_forms.layout import Layout, Div
@@ -71,13 +74,60 @@ class PatientRegisterForm(UserCreationForm):
 
 
 class BookAppointmentForm(forms.ModelForm):
+    date=forms.DateField(input_formats=settings.DATE_INPUT_FORMATS)
     class Meta:
         model = Patientappointment
         fields = ['doctor', 'date', 'time', 'reason_for_visit']
-    #     date = forms.DateField(
-    #     widget=DatePickerInput(format='%m/%d/%Y')
+        labels = {
+            'doctor':'please select your doctor',
+            'date': 'date(YYYY/MM/DD)',
+        }
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     self.helper = FormHelper(self)
+    #     self.helper.label_class = 'sr-only'
+    #     self.helper.form_tag = False
+    #     self.helper.layout = Layout(
+    #     PrependedText('doctor', '<i class="fa fa-home"></i>', placeholder="Building Number or Name",
+    #                   ),
+    #     PrependedText('date', '<i class="fa fa-home"></i>', placeholder="Street Name",
+    #                   ),
+    #     PrependedText('time', '<i class="fa fa-home"></i>', placeholder="Town or City",
+    #                   label="test"),
+    #     PrependedText('reason_for_visit', '<i class="fa fa-home"></i>', placeholder="County"),
     # )
+
+    # class Meta:
+    #     model = Patientappointment
+    #     fields = ['doctor', 'date', 'time', 'reason_for_visit',
+                
+    #             ]
+    #     labels = {
+    #         'date': 'Have you lived at the property for 3 years?',
+    #     } 
+
 class LabTestForm(forms.ModelForm):
     class Meta:
         model = LabTest
         fields = ('__all__')
+
+
+
+class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField()
+
+    class Meta:
+        model = User
+        fields = ['username', 'email']
+
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Patient
+        fields = ['phone', 'profile_pic', 'address']
+
+class DoctorProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Doctor
+        
+        fields = ['hospital','phone', 'description','profile_pic','address','years_of_experience','speciality']

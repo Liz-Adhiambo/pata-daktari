@@ -58,8 +58,20 @@
           <li class="nav-item">
             <a class="nav-link" href="{%url 'api:blogs'%}">Blog</a>
           </li>
+          {%if user.is_doctor%} 
+          <li class="nav-item">
+            <a class="nav-link" href="{%url 'api:post-create'%}">Add Blog</a>
+          </li>
+          {%else%}
+          <li class="nav-item">
+            <a class="nav-link" href=""></a>
+          </li>
+          {%endif%}
           <li class="nav-item">
             <a class="nav-link" href="{%url 'api:alldoctors'%}">Find a doctor</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{%url 'api:labtests'%}">Labtests</a>
           </li>
         </ul>
         
@@ -108,9 +120,17 @@
                      </li>
                      {%endif%}
                     <li>
-                    <a class="dropdown-item" href="#">Settings</a>
+                      {%if user.is_patient%}
+                    <a class="dropdown-item" href="{%url 'api:patientupdateprofile' %}">Settings</a>
                     </li>
+                    {%else%}
+                    <li>  
+                      <a class="dropdown-item" href="{%url 'api:doctorupdateprofile'%}">Settings3</a>
+                      </li>
+                      {%endif%} 
+
                     <li>
+                      
                     <a class="dropdown-item" href="{%url 'api:logout'%}">Logout</a>
                     </li>
                 </ul>

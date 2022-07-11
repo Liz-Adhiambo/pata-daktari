@@ -3,9 +3,9 @@ from django.shortcuts import render,redirect
 from django.urls import reverse
 from rest_framework import serializers, generics,viewsets
 from rest_auth.registration.views import RegisterView
-from core.forms import BookAppointmentForm, DoctorRegisterForm, LoginForm, PatientRegisterForm
+from core.forms import BookAppointmentForm, DoctorProfileUpdateForm, DoctorRegisterForm, LabTestForm, LoginForm, PatientRegisterForm, ProfileUpdateForm, UserUpdateForm
 from django.contrib.auth import login, logout, authenticate
-from core.models import Doctor, Doctorblog, Patientappointment,User
+from core.models import Doctor, Doctorblog, LabTest, Patient, Patientappointment,User
 from rest_framework.renderers import TemplateHTMLRenderer
 from core.serializers import (
     DoctorCustomRegistrationSerializer, PatientCustomRegistrationSerializer,ProfileSerializer,DoctorblogSerializer
@@ -29,6 +29,8 @@ from django.views.generic import (
 )
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import auth
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 
@@ -84,7 +86,21 @@ def login_view(request):
 
 def all_doctors(request):
 
-    doctors=Doctor.objects.all()
+    doctors_list=Doctor.objects.all()
+    
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(doctors_list, 6)
+
+    try:
+        doctors = paginator.page(page)
+    except PageNotAnInteger:
+        doctors = paginator.page(1)
+    except EmptyPage:
+        doctors = paginator.page(paginator.num_pages)
+
+
+
     context={
         'doctors':doctors
     }
@@ -95,7 +111,7 @@ def all_doctors(request):
 
 def doctor_profile(request, username):  
     obj = User.objects.get(username=username)  
-    appointments=Patientappointment.objects.filter(doctor=obj.doctor)
+    appointments=Patientappointment.objects.filter(doctor__exact=request.user)
     context = {
         'username': obj, 
         'appointments': appointments
@@ -108,9 +124,11 @@ def doctor_profile(request, username):
 def patient_profile(request, username):  
     obj = User.objects.get(username=username)  
     appointments=Patientappointment.objects.filter(patient=obj.id)
+    labtests=LabTest.objects.filter(patient=obj.id)
     context = {
         'username': obj, 
-        'appointments': appointments
+        'appointments': appointments,
+        'labtests':labtests
         
     }
    
@@ -118,7 +136,17 @@ def patient_profile(request, username):
 
 def doctorblog_list(request):
     
-        blogs = Doctorblog.objects.all()
+        blog_list = Doctorblog.objects.all()
+
+        page = request.GET.get('page', 1)
+        paginator = Paginator(blog_list, 8)
+
+        try:
+            blogs = paginator.page(page)
+        except PageNotAnInteger:
+            blogs = paginator.page(1)
+        except EmptyPage:
+            blogs = paginator.page(paginator.num_pages)
 
         context={
             'blogs':blogs
@@ -132,7 +160,8 @@ class PostListView(ListView):
     model = Doctorblog
     template_name = 'doctors/doctorblog.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'posts'
-    
+    paginate_by = 10
+    queryset = Doctorblog.objects.all()
 
 
 class PostDetailView(DetailView):
@@ -143,17 +172,18 @@ class PostDetailView(DetailView):
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Doctorblog
     template_name = 'doctors/doctorblog_form.html'
-    fields = ['title', 'content']
+    fields = ['title', 'content','blog_pic']
 
     def form_valid(self, form):
         form.instance.doctor = self.request.user 
         return super().form_valid(form)
     def get_success_url(self): # new
-             return reverse('api:blog-home')
+             return reverse('api:blogs')
 
     
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Doctorblog
+    template_name = 'doctors/doctorblog_form.html'
     fields = ['title', 'content']
 
     def form_valid(self, form):
@@ -162,9 +192,12 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def test_func(self):
         post = self.get_object()
-        if self.request.user == post.author:
+        if self.request.user == post.doctor:
             return True
         return False
+    
+    def get_success_url(self): # new
+             return reverse('api:blogs')
 
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
@@ -182,8 +215,81 @@ def logout(request):
     auth.logout(request)
     return redirect('core:indexy')
 
+def update_profile(request):
+    Patient.objects.get_or_create(patient=request.user)
+
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.patient)
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.instance.user=request.user
+            p_form.save()
+
+            messages.success(request, f'Your account has been updated!')
+            return redirect('core:indexy')
+
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm()
+
+    context = {
+        'u_form': u_form,
+        'p_form': p_form
+    }
+
+    return render(request, 'patients/update_profile.html', context) 
+
+def doctorupdate_profile(request):
+    Doctor.objects.get_or_create(doctor=request.user)
+
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        pr_form = DoctorProfileUpdateForm(request.POST, request.FILES, instance=request.user.doctor)
+        if u_form.is_valid() and pr_form.is_valid():
+            u_form.save()
+            pr_form.instance.user=request.user
+            pr_form.save()
+
+            messages.success(request, f'Your account has been updated!')
+            return redirect('core:indexy')
+
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        pr_form = DoctorProfileUpdateForm()
+
+    context = {
+        'u_form': u_form,
+        'pr_form': pr_form
+    }
+
+    return render(request, 'doctors/update_profile.html', context)   
+
+
+#labtest views
+def labtests(request):
+
+    return render(request,'labtest.html')
+
+class LabtestCreateView(LoginRequiredMixin, CreateView):
+    login_url = '/login-doctor/'
+    model = LabTest
+    template_name = 'labtestform.html'
+    fields = ['test','gender', 'phone_number','date_of_birth']
+
+    def form_valid(self, form):
+        form.instance.patient = self.request.user 
+        return super().form_valid(form)
+    def get_success_url(self): # new
+        
+             return reverse('api:indexy')
+    
+    
+
 # appointemnt views
+
 class AppointmentCreateView(LoginRequiredMixin, CreateView):
+    login_url = '/login-doctor/'
     model = Patientappointment
     template_name = 'bookappointment.html'
     fields = ['doctor','date', 'time','reason_for_visit']

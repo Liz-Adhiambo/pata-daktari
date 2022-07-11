@@ -3,6 +3,8 @@ from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+from cloudinary.models import CloudinaryField
+from ckeditor.fields import RichTextField
 
 class User(AbstractUser):
   #Boolean fields to select the type of account.
@@ -14,6 +16,14 @@ class Doctor(models.Model):
     hospital = models.CharField(max_length=100)
     phone = models.CharField(max_length=100)
     description = models.TextField()
+    profile_pic = CloudinaryField('image',blank=True)
+    address = models.CharField(max_length=100,null=True)
+    years_of_experience = models.CharField(max_length=100,null=True)
+    speciality = models.CharField(max_length=100,blank=True)
+    
+
+
+
 
 
     
@@ -24,6 +34,8 @@ class Doctor(models.Model):
 class Patient(models.Model):
     patient = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     phone = models.CharField(max_length=100)
+    profile_pic = CloudinaryField('image', blank=True)
+    address = models.CharField(max_length=100,null=True)
 
     def __str__(self):
         return self.patient.username
@@ -31,9 +43,11 @@ class Patient(models.Model):
 class Doctorblog(models.Model):
     doctor= models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,null=True)
     title = models.CharField(max_length=70, blank=False, default='')
-    content = models.CharField(max_length=500,blank=False, default='')
+    # content = models.TextField(blank=False, default='')
+    content = RichTextField(blank=True, null=True)
     published = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+    blog_pic = CloudinaryField('image', blank=True)
 
 
     #appointment models
@@ -51,6 +65,7 @@ class Patientappointment(models.Model):
     time = models.CharField(max_length=50, choices=TIMESLOT_LIST, null=True)
     reason_for_visit = models.CharField(max_length=255, null=True)
     patient = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, related_name='patient_appointments')
+    phone_number = models.CharField(max_length=50, null=True)
     
 
 
@@ -69,6 +84,5 @@ class LabTest(models.Model):
     gender = models.CharField(max_length=50,choices=GENDER_CHOICES)
     phone_number = models.CharField(max_length=100)
     date_of_birth = models.DateTimeField()
-    def __str__(self):
-        return self.patient.username   
+      
     

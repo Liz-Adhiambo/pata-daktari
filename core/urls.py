@@ -5,7 +5,7 @@ from django.conf import settings
 
 
 from django.urls import path
-from core.views import AppointmentCreateView, DoctorRegistrationView, PatientRegistrationView, PostCreateView, PostDeleteView, PostDetailView, PostListView, PostUpdateView,ProfileAPI, doctorsRegistration, patientsRegistration
+from core.views import AppointmentCreateView, DoctorRegistrationView, LabtestCreateView, PatientRegistrationView, PostCreateView, PostDeleteView, PostDetailView, PostListView, PostUpdateView,ProfileAPI, doctorsRegistration, patientsRegistration
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -19,8 +19,12 @@ urlpatterns = [
     path('registering/', doctorsRegistration.as_view(), name='doctors'),
     path('registering-patients/', patientsRegistration.as_view(), name='patients'),
     path('login-doctor/', views.login_view, name='logindoctor'),
+    path('labtests/', views.labtests, name='labtests'),
+    path('patientlabtest/', LabtestCreateView.as_view(), name='patientlabtest'),
     path('doctor/<str:username>/', views.doctor_profile, name='doctorprofile'),
     path('patient/<str:username>/', views.patient_profile, name='patientprofile'),
+    path('update_profile/', views.update_profile, name='patientupdateprofile'),
+    path('doctorupdate_profile/', views.doctorupdate_profile, name='doctorupdateprofile'),
     path('patientprofile/', AppointmentCreateView.as_view(), name='bookappointment'),
     path('blogs',views.doctorblog_list, name='blogs'),
     path('doctor/posts', PostListView.as_view(), name='blog-home'),
