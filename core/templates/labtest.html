@@ -1,0 +1,50 @@
+{%extends 'base.html'%}
+{% load static %}
+
+{%block content%}
+{%include 'navbar.html'%}
+<div class="lab"style="height:500px;">
+
+</div>
+<div class='container'>
+  <div class='row labcol1'>
+    <div class="col-md-5 labcol">
+        <div class="card text-center">
+            <div class="card-header heading">Basic Lab test</div>
+            <div class="card-body">
+              <h5 class="card-title">BMP</h5>
+              <i class="fas fa-vial fa-6x"></i>
+              <p class="card-text">A basic metabolic panel (BMP) is a helpful and common test that measures several important aspects of your blood. 
+                <br>Healthcare providers often use it as a go-to blood test to assess your general physical health, and it can also help diagnose, screen for and monitor certain health conditions.</p>
+                <br>
+                <br>
+                <br>
+               
+              <a href="{%url 'api:patientlabtest'%}" class="btn btn-auto">Request Test</a>
+            </div>
+            <div class="card-footer text-muted"><strong>Ksh.2000</strong></div>
+          </div>
+
+    </div>
+    <div class="col-md-1">
+        
+
+    </div>
+    <div class="col-md-5 ">
+        <div class="card text-center">
+            <div class="card-header heading">Comprehensive Test</div>
+            <div class="card-body">
+              <h5 class="card-title">CMP</h5>
+              <i class="fas fa-vials fa-6x"></i>
+
+              <p class="card-text">This test combines the Basic Metabolic Panel with six more tests for a more comprehensive evaluation of metabolic functions, with a focus on organ systems.A comprehensive metabolic panel (CMP) is a test that measures 14 different substances in your blood. It provides important information about your body's chemical balance and metabolism. Metabolism is the process of how the body uses food and energy. </p>
+              <a href="{%url 'api:patientlabtest'%}" class="btn btn-auto">Request Test</a>
+            </div>
+            <div class="card-footer text-muted">Ksh.4000</div>
+          </div>
+
+    </div>
+
+  </div>
+</div>
+{%endblock%}
