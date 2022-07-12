@@ -1,7 +1,7 @@
 from dj_rest_auth.registration.views import RegisterView
 from django.shortcuts import render,redirect
 from django.urls import reverse
-from dj_rest_auth import serializers, generics,viewsets
+from dj_rest_auth import serializers
 from core.forms import BookAppointmentForm, DoctorProfileUpdateForm, DoctorRegisterForm, LabTestForm, LoginForm, PatientRegisterForm, ProfileUpdateForm, UserUpdateForm
 from django.contrib.auth import login, logout, authenticate
 from core.models import Doctor, Doctorblog, LabTest, Patient, Patientappointment,User
