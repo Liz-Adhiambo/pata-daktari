@@ -9,6 +9,16 @@
 
 <div class='container'>
     <div class="row">
+        {% if messages %}
+        <ul class="messages">
+          {% for message in messages %}
+            <p class="success {{ message.tags }}alert-dismissible" role="alert">
+              
+              {{ message }}
+            </p>
+          {% endfor %}
+        </ul>
+      {% endif %}
         <div class='col-md-7'>
             <img src="{% static 'images/calender2.webp'%}" style="height:600px; width:700px;">
 

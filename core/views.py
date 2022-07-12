@@ -32,25 +32,59 @@ from django.contrib.auth.models import auth
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+from django.core.mail import send_mail
+from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
+from .forms import ContactForm
+from django.contrib.messages.views import SuccessMessageMixin
+from django.urls import reverse_lazy
 
+#contact view
 
-
-
+   
 
 
 #template views
 
 def index(request):
-    return render(request, 'home.html')
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            subject = form.cleaned_data['subject']
+            content = form.cleaned_data['content']
+            html = render_to_string('contact/emails/contactform.html', {
+                'name': name,
+                'email': email,
+                'subject': subject,
+                'content': content
+            })
+            send_mail('The contact form subject', 'This is the message', 'noreply@codewithstein.com', [email], html_message=html)
+            messages.success(request, 'Your message was sent successfully!')  
+            return redirect('api:indexy')
+        else:
+            messages.warning(request, 'Please correct the error below.') 
+            
+    else:
+        form = ContactForm()
+    return render(request, 'home.html', {
+        'form': form
+    })
+
+    
 
 
-class doctorsRegistration(CreateView):
+class doctorsRegistration(SuccessMessageMixin,CreateView):
     model = User
     form_class = DoctorRegisterForm
+    success_url = reverse_lazy('core:logindoctor')
+    success_message = " Your Account has been created successfully"
     template_name ='doctors/register.html'
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
+        
         return redirect('core:logindoctor')
 
 class patientsRegistration(CreateView):
@@ -90,7 +124,7 @@ def all_doctors(request):
     
 
     page = request.GET.get('page', 1)
-    paginator = Paginator(doctors_list, 6)
+    paginator = Paginator(doctors_list, 3)
 
     try:
         doctors = paginator.page(page)
@@ -102,7 +136,8 @@ def all_doctors(request):
 
 
     context={
-        'doctors':doctors
+        'doctors':doctors,
+        
     }
 
     return render(request,'patients/alldoctors.html',context)
@@ -139,7 +174,7 @@ def doctorblog_list(request):
         blog_list = Doctorblog.objects.all()
 
         page = request.GET.get('page', 1)
-        paginator = Paginator(blog_list, 8)
+        paginator = Paginator(blog_list, 4)
 
         try:
             blogs = paginator.page(page)
@@ -184,7 +219,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Doctorblog
     template_name = 'doctors/doctorblog_form.html'
-    fields = ['title', 'content']
+    fields = ['title', 'content','blog_pic']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -202,6 +237,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Doctorblog
+    template_name = 'doctors/doctordelete.html'
     success_url = '/'
 
     def test_func(self):

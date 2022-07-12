@@ -9,12 +9,18 @@
 <body class='patient-register'>
   
     <div class="container">
-    <div class="row">
-      <div class="col-sm-5 col-md-4">
-        <img src="{% static 'images/image1.png'%}" style="height:500px; width:450px">
-      </div>
-      <div class="col-sm-5 offset-sm-2 col-md-8 offset-md-0 ">
-        
+    <div class="row reg">
+      {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <p class="success {{ message.tags }}alert-dismissible" role="alert">
+            
+            {{ message }}
+          </p>
+        {% endfor %}
+      </ul>
+    {% endif %}
+      <div class="col-sm-5 col-md-8 ">
         <div class="row formreg sign">
           <h3 class="text-center sign">Sign up as Patient</h3>
           <h6 class="text-center sign">Are you a doctor?  <a href={%url 'api:doctors'%}>Sign up here</a></h6>
@@ -32,11 +38,15 @@
             
             {{ form.password1|as_crispy_field }}
             {{ form.password2|as_crispy_field }} 
-            <button type="submit" class="btn btn-auto mb-3">register</button>
+            <button type="submit" class="btn btn-outline-auto mb-3"><strong>register<strong></button>
         </form>
         
           </div>
           
+      </div>
+      <div class="col-sm-5 offset-sm-2 col-md-4  ">
+        
+        
         </div>
         
           

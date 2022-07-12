@@ -131,3 +131,10 @@ class DoctorProfileUpdateForm(forms.ModelForm):
         model = Doctor
         
         fields = ['hospital','phone', 'description','profile_pic','address','years_of_experience','speciality']
+
+
+class ContactForm(forms.Form):
+    name = forms.CharField(max_length=255)
+    email = forms.EmailField()
+    subject = forms.CharField(max_length=80)
+    content = forms.CharField(widget=forms.Textarea)

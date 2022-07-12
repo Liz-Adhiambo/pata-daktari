@@ -37,7 +37,7 @@
         <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
           <div class="d-flex justify-content-center align-items-center h-100">
             <div class="text-white">
-              <h1 class="mb-3">Pata-Daktari Blogs</h1>
+              <h1 class="mb-3 ">Pata-Daktari Blogs</h1>
               
               
              
@@ -54,21 +54,21 @@
   <!--Main layout-->
   <div class="my-5">
     <div class="container">
-      <div class="row align-items-start  mb-3" style="height: 100px;">
+      <div class="row align-items-start  mb-3" style="">
      
         {%for blog in blogs %}
-        <div class="col-md-3 mb-3"> 
-            <div class="">
+        <div class="col-md-3 mb-3  h-100"> 
+            <div class="cardy cardy-block">
               <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
-                <img src="{{blog.blog_pic.url|default:'static/images/lab.jpg' }}" class="img-fluid" />
+                <img src="{{blog.blog_pic.url|default:'static/images/lab.jpg' }}" class="img-fluid"style="max-height:200px;" />
                 
               </div>
-              <div class="">
+              <div class="cardy card-body cardy-block d-flex and flex-column">
                 <h5 class="card-title">{{blog.title}}</h5>
                 <p class="card-text">
-                  {{blog.content|safe|truncatewords:20}}
+                  {{blog.content|safe|truncatewords:10}}
                 </p>
-                <a href="{%url 'api:post-detail' blog.id%}" class="btn btn-auto">Read</a>
+                <a href="{%url 'api:post-detail' blog.id%}" class="btn btn-outline-auto">Read</a>
               </div>
             </div>
             

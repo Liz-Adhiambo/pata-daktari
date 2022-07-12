@@ -7,14 +7,19 @@
 {% block content %}
 {%include 'navbar.html'%}
 <body class='patient-register'>
-  
-    <div class="container">
-    <div class="row">
-      <div class="col-sm-5 col-md-4">
-        <img src="{% static 'images/image1.png'%}" style="height:500px; width:450px">
-      </div>
-      <div class="col-sm-5 offset-sm-2 col-md-8 offset-md-0 ">
+  {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <p class="success {{ message.tags }}alert-dismissible" role="alert">
         
+        {{ message }}
+      </p>
+    {% endfor %}
+  </ul>
+{% endif %}
+    <div class="container">
+    <div class="row reg">
+      <div class="col-sm-5 col-md-6">
         <div class="row formreg sign">
           <h3 class="text-center sign">Sign up as Doctor</h3>
           <h6 class="text-center sign">Are you a patient?  <a href={%url 'api:patients'%}>Sign up here</a></h6>
@@ -37,13 +42,8 @@
         
           </div>
           
-        </div>
-        
-          
-          
-      
-        
       </div>
+      
     </div>
   </div>
 

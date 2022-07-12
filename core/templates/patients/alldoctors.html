@@ -6,29 +6,51 @@
   <section id="doctors" class="doctors">
     <div class="container">
 
-      <div class="section-title">
-        <h2 class="text-center">Doctors</h2>
-        <p class="text-center" >Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+      <div class="section-title pheaderd namey mb-5" style="height:300px;">
+        <br>
+        <br>
+        <br>
+        <h2 class="text-center heading "><span>Pata Daktari</span> Doctors</h2>
+        <p class="text-center" >Book appointments with minimum wait-time & verified doctor details</p>
       </div>
+      
 
       <div class="row">
         {%for doctor in doctors%}
-        <div class="col-lg-6">
-          <div class="member d-flex align-items-start mb-3 ">
-            <div class="pic"><img src="{% static 'assets/img/doctors/doctors-2.jpg'%}" class="img-fluid" alt=""></div>
-            <div class="member-info">
-              <h4>{{doctor.doctor.username}}</h4>
-              <span>{{doctor.doctor.first_name }} {{doctor.doctor.last_name}}</span>
-              <p>Explicabo voluptatem mollitia et repellat qui dolorum quasi</p>
-              <div class="social">
-                <a href=""><i class="fab fa-facebook"></i></a>
-                <a href=""><i class="fab fa-twitter"></i></a>
-                <a href=""><i class="fab fa-instagram"></i></a>
-                <a href=""> <i class="fab fa-linkedin"></i> </a>
+        <div class="col-lg-12">
+          <div class="member d-flex align-items-start mb-6 ">
+            <div class="pic col-md-6"><img src="{{doctor.profile_pic.url|default:'/static/images/avatar2.jpg'}}" class="img-fluid" alt="" style="height:300px; ">
+            </div>
+            <div class="member-info col-md-6">
+              <div class="row ">
+                <div class="member-info col-md-6">
+                    <h4>{{doctor.doctor.username}}</h4>
+                    <span>{{doctor.doctor.first_name }} {{doctor.doctor.last_name}}</span>
+                    <p><h6>Description </h6>{{doctor.description}}</p>
+
+                    
+                     
+                </div>
+                <div class="member-info col-md-6">
+                  <p><h6>Specialization </h6>{{doctor.speciality}}</p>
+                  <p><h6>Experience </h6>{{doctor.years_of_experience}}</p>
+                  <p><h6>Hospital </h6>{{doctor.hospital}}</p>
+                  <div class="social">
+                    <a href=""><i class="fab fa-facebook"></i></a>
+                    <a href=""><i class="fab fa-twitter"></i></a>
+                    <a href=""><i class="fab fa-instagram"></i></a>
+                    <a href=""> <i class="fab fa-linkedin"></i> </a>
+                  </div>
+                  <a class="nav-item btn btn-auto " href="{%url 'api:bookappointment'%}">Book appointment</a>
+                  
+
+                </div>
+                
               </div>
+              
               <br>
               <br>
-              <a class="nav-item btn btn-auto " href="{%url 'api:bookappointment'%}">Book appointment</a> 
+             
             </div>
             
           </div>
@@ -76,9 +98,26 @@
     </ul>
     </nav>
   {% endif %}
+  <div class="container d-md-flex py-4">
+  
+    <div class="me-md-auto text-center text-md-start">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Pata Daktari</span></strong>. All Rights Reserved
+      </div>
+      
+    </div>
+    <div class="social-links text-center text-md-right pt-3 pt-md-0">
+      <a href="#" ><i class="fab fa-twitter"></i></a>
+      <a href="#" class="facebook"><i class="fab fa-facebook"></i></a>
+      <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" class="google-plus"><i class="fab fa-skype"></i></a>
+      <a href="#" class="linkedin"><i class="fab fa-linkedin"></i></a>
+    </div>
+  </div>
+</footer><!-- End Fo
 
 
-  </section><!-- End Doctors Section -->  
+  </section><!- End Doctors Section -->  
 
 
 {%endblock%}

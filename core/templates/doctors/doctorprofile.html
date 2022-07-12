@@ -115,7 +115,7 @@
       }
       
       tr:nth-child(even) {
-        background-color: #dddddd;
+        background-color:  #7fdaeb;
       }
       
     
@@ -127,8 +127,8 @@
             
             <center>
                 <div class="main">
-                    <div class="">
-                        <img src="{%static 'images/image1.png'%}" class="catty mt-2 rounded-circle" alt="I am {{username}}">
+                    <div class="pheader">
+                        <img src="{{username.doctor.profile_pic.url|default:'/static/images/avatar2.jpg'}}" class="catty mt-2 rounded-circle" alt="I am {{username}}">
                         <div class="card-body">
                             <h1 class="card-title">
                                 <a  class="catty catty-name text-decoration-none" id="cattyName">{{username}} !</a>
@@ -162,11 +162,11 @@
                             <div class="col-md-6">
                                 <div class="media">
                                     <label>Name</label>
-                                    <p>{{username.first_name}}</p>
+                                    <p>{{username.first_name }} {{ username.last_name}}</p>
                                 </div>
                                 <div class="media">
-                                    <label>Age</label>
-                                    <p>22 Yr</p>
+                                    <label>Expereince</label>
+                                    <p>{{username.doctor.years_of_experience}}</p>
                                 </div>
                                 <div class="media">
                                     <label>Hospital</label>
@@ -174,7 +174,7 @@
                                 </div>
                                 <div class="media">
                                     <label>Address</label>
-                                    <p>California, USA</p>
+                                    <p>{{username.doctor.address}}</p>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -185,6 +185,10 @@
                                 <div class="media">
                                     <label>Phone</label>
                                     <p>{{username.doctor.phone}}</p>
+                                </div>
+                                <div class="media">
+                                    <label>Speciality</label>
+                                    <p>{{username.doctor.speciality}}</p>
                                 </div>
                                 
                             </div>
@@ -213,7 +217,7 @@
     
         <tr>
           <td>{{appointment.patient}}</td>
-          <td>{{appointment.phonenumber}}</td>
+          <td>{{appointment.patient.patient.phone}}</td>
           <td>{{appointment.date|date:"F d, Y"}}</td>
           <td> 
         {% if appointment.time == '1' %}

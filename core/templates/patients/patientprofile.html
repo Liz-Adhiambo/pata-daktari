@@ -115,7 +115,7 @@
       }
       
       tr:nth-child(even) {
-        background-color: #dddddd;
+        background-color: #7fdaeb;
       }
       
     
@@ -127,11 +127,11 @@
             
             <center>
                 <div class="main">
-                    <div class="">
-                        <img src="{%static 'images/image1.png'%}" class="catty mt-2 rounded-circle text-dark" alt="I am {{username}}">
+                    <div class="pheader">
+                        <img src="{{username.patient.profile_pic.url|default:'/static/images/avatar2.jpg'}}" class="catty mt-2 rounded-circle text-dark" alt="I am {{username}}">
                         <div class="card-body">
-                            <h1 class="card-title">
-                                <a  class="catty catty-name text-decoration-none" id="cattyName">{{username}} !</a>
+                            <h1 class="card-title ">
+                                <a  class="catty catty-name name text-decoration-none" id="cattyName">{{username}} !</a>
                             </h1>
                             
                         </div>
@@ -154,7 +154,7 @@
             <div class="row align-items-center flex-row-reverse">
                 <div class="col">
                     <div class="about-text go-to">
-                        <h3 class="dark-color text-center">About Me</h3>
+                        <h3 class="dark-color text-center heading">About Me</h3>
                         <hr>
                         
                         <p >{{username.doctor.description}}</p>
@@ -171,7 +171,7 @@
                                 
                                 <div class="media">
                                     <label>Address</label>
-                                    <p>California, USA</p>
+                                    <p>{{username.patient.address}}</p>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -196,7 +196,7 @@
     </section>
     <hr>
 
-    <h3 class='text-center'>Your Booked Appointments</h3>
+    <h3 class='text-center heading'>Your Booked Appointments</h3>
 
     <table>
         <tr>
@@ -231,9 +231,9 @@
         {%endfor%}
       </table>
 
+<br>
 
-
-      <h3 class='text-center'>Your Booked Labtests</h3>
+      <h3 class='text-center heading'>Your Booked Labtests</h3>
 
     <table>
         <tr>

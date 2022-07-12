@@ -24,19 +24,15 @@ span{
     border-radius: 10px;
 }
 
-.patient-register{
-
-    background: rgb(4,240,221);
-    background: linear-gradient(90deg, rgb(243, 248, 248) 40%, rgba(0,212,255,1) 65%, rgba(4,179,240,1) 91%);
-}
 
 .formreg{
-    background-color: rgb(243, 248, 248) ;
+    background-color: rgba(0, 0, 0, 0.8);
     margin-top: 5px;
  border-radius: 10%;
  border: 2px solid rgba(4,179,240,1);
  border-color: rgb(4,240,221) solid;
  border-right: 3px;
+ color:beige
    
     
 }
@@ -110,4 +106,63 @@ span{
     margin-top: 40px;
     border-radius: 10px;
 
+}
+ul.messages {                                                                                                                                                                     
+    border: 1px solid;
+    margin: 10px auto;
+    padding: 15px 10px 15px 50px;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    max-width: 460px;
+    color: #eef1ee;
+    background-color: #1cca2a;
+}
+
+.cardy .cardy-block {
+    max-height:200px;
+    min-height:200px; 
+    overflow:auto;
+   
+} 
+
+.btn-outline-auto{
+    background-color: white;
+    border-radius: 10px;
+    border: 3px rgb(127, 218, 235) solid;
+    font-weight: bolder;
+}
+.btn-outline-auto:hover{
+    background-color: rgb(127, 218, 235);
+    border-radius: 10px;
+    border: 3px rgb(127, 218, 235) solid;
+}
+
+
+.pheader{
+    background-image: url(../static/images/pheader3.jpg);
+    background-repeat: no-repeat;
+    background-image: cover;
+    background-size: cover;
+}
+.pheaderd{
+    background-image: url(../static/images/br.webp);
+    background-repeat: no-repeat;
+    background-image: cover;
+    background-size: cover;
+}
+.name{
+    color:white;
+}
+
+.namey{
+    color:#0a345c;
+    font-weight: bolder;
+    font-size: 30px;
+}
+
+.reg{
+    background-image: url(../static/images/lab2.webp);
+    background-repeat: no-repeat;
+    background-image: cover;
+    background-size: cover;
 }
