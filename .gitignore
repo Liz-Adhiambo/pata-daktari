@@ -1,4 +1,5 @@
 venv/
 *pyc
-MTuserauthentication/settings.py
+MTuserauthentication/settings2.py
 assets1/
+.env

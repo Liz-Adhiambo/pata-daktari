@@ -143,7 +143,7 @@ def all_doctors(request):
     return render(request,'patients/alldoctors.html',context)
 
 
-
+@login_required(login_url='core:logindoctor')
 def doctor_profile(request, username):  
     obj = User.objects.get(username=username)  
     appointments=Patientappointment.objects.filter(doctor__exact=request.user)
@@ -156,6 +156,7 @@ def doctor_profile(request, username):
     return render(request, 'doctors/doctorprofile.html',  context)
 
 #patients profile
+@login_required(login_url='core:logindoctor')
 def patient_profile(request, username):  
     obj = User.objects.get(username=username)  
     appointments=Patientappointment.objects.filter(patient=obj.id)
@@ -246,11 +247,12 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return True
         return False
         
-
+@login_required(login_url='core:logindoctor')
 def logout(request):
     auth.logout(request)
     return redirect('core:indexy')
 
+@login_required(login_url='core:logindoctor')
 def update_profile(request):
     Patient.objects.get_or_create(patient=request.user)
 
@@ -275,7 +277,8 @@ def update_profile(request):
     }
 
     return render(request, 'patients/update_profile.html', context) 
-
+    
+@login_required(login_url='logindoctor')
 def doctorupdate_profile(request):
     Doctor.objects.get_or_create(doctor=request.user)
 
