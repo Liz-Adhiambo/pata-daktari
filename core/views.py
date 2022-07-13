@@ -343,7 +343,7 @@ class LabtestCreateView(LoginRequiredMixin, CreateView):
             to_emails=[email],
             subject='You have successfully booked an appointment.',
             html_content='you have booked an appointment with patadaktari')
-        # message.dynamic_template_data = {'first_name':name,}
+        
         message.template_id='d-513767008d3e4adb865afe88112aabd3'
         try:
             sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
@@ -379,7 +379,7 @@ class AppointmentCreateView(LoginRequiredMixin, CreateView):
             to_emails=[email],
             subject='You have successfully booked an appointment.',
             html_content='you have booked an appointment with patadaktari')
-        # message.dynamic_template_data = {'first_name':name,}
+        
         message.template_id='d-0e8a0b14bbd042278a3ff89c3a99a1e9'
         try:
             sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
