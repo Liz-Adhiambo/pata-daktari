@@ -38,6 +38,19 @@ from .forms import ContactForm
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 
+
+#sendgrid
+import os
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
+
+
+#sendgrid view
+
+
+
+
+
 #contact view
 
    
@@ -70,6 +83,9 @@ def index(request):
     return render(request, 'home.html', {
         'form': form
     })
+
+
+
 
     
 
@@ -140,6 +156,9 @@ def all_doctors(request):
     }
 
     return render(request,'patients/alldoctors.html',context)
+
+
+
 
 
 @login_required(login_url='core:logindoctor')
@@ -313,10 +332,29 @@ class LabtestCreateView(LoginRequiredMixin, CreateView):
     login_url = '/login-doctor/'
     model = LabTest
     template_name = 'labtestform.html'
-    fields = ['test','gender', 'phone_number','date_of_birth']
+    fields = ['test','gender', 'phone_number','date_of_birth','email']
 
     def form_valid(self, form):
         form.instance.patient = self.request.user 
+        email=form.cleaned_data['email']
+        name=self.request.user 
+        message = Mail(
+            from_email='gladys.wangi@student.moringaschool.com',
+            to_emails=[email],
+            subject='You have successfully booked an appointment.',
+            html_content='you have booked an appointment with patadaktari')
+        # message.dynamic_template_data = {'first_name':name,}
+        message.template_id='d-513767008d3e4adb865afe88112aabd3'
+        try:
+            sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+            response = sg.send(message)
+            print(response.status_code)
+            print(response.body)
+            print(response.headers)
+        except Exception as e:
+            print(e.message)
+
+        
         return super().form_valid(form)
     def get_success_url(self): # new
         
@@ -330,10 +368,29 @@ class AppointmentCreateView(LoginRequiredMixin, CreateView):
     login_url = '/login-doctor/'
     model = Patientappointment
     template_name = 'bookappointment.html'
-    fields = ['doctor','date', 'time','reason_for_visit']
+    fields = ['doctor','date', 'time','reason_for_visit','email']
 
     def form_valid(self, form):
         form.instance.patient = self.request.user 
+        email=form.cleaned_data['email']
+        name=self.request.user 
+        message = Mail(
+            from_email='gladys.wangi@student.moringaschool.com',
+            to_emails=[email],
+            subject='You have successfully booked an appointment.',
+            html_content='you have booked an appointment with patadaktari')
+        # message.dynamic_template_data = {'first_name':name,}
+        message.template_id='d-0e8a0b14bbd042278a3ff89c3a99a1e9'
+        try:
+            sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+            response = sg.send(message)
+            print(response.status_code)
+            print(response.body)
+            print(response.headers)
+        except Exception as e:
+            print(e.message)
+
+                    
         return super().form_valid(form)
     def get_success_url(self): # new
         

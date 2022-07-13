@@ -1,5 +1,6 @@
 venv/
 *pyc
-MTuserauthentication/settings2.py
+MTuserauthentication/settings22.py
 assets1/
-.env
+sendgrid.env
+sendgrid.env

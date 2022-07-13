@@ -23,13 +23,13 @@ class Doctor(models.Model):
     
 
 
-
-
-
     
 
     def __str__(self):
         return self.doctor.username
+
+    
+
 
 class Patient(models.Model):
     patient = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -66,6 +66,7 @@ class Patientappointment(models.Model):
     reason_for_visit = models.CharField(max_length=255, null=True)
     patient = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, related_name='patient_appointments')
     phone_number = models.CharField(max_length=50, null=True)
+    email=models.EmailField(null=True, blank=True, max_length=100)
     
 
 
@@ -84,5 +85,6 @@ class LabTest(models.Model):
     gender = models.CharField(max_length=50,choices=GENDER_CHOICES)
     phone_number = models.CharField(max_length=100)
     date_of_birth = models.DateTimeField()
+    email=models.EmailField(null=True, blank=True, max_length=100)
       
     
