@@ -53,21 +53,21 @@ Before you begin running the application, you must first install all the depende
 
 
 ```
-(env) $ python manage.py migrate 
+(venv) $ python manage.py migrate 
 ```
 
 
 4. Make migrations for the core application: 
 
 ```
-(env) $ python manage.py makemigrations core
-(env) $ python manage.py migrate
+(venv) $ python manage.py makemigrations core
+(venv) $ python manage.py migrate
 ```
 5. Create a super user / admin:
 
 
 ```
-(env) $ python manage.py createsuperuser
+(venv) $ python manage.py createsuperuser
 ```
 
 
