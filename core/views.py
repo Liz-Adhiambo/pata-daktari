@@ -491,7 +491,6 @@ def blog_list_published(request):
 
 class ProfileList(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'profile_list.html'
 
     def get(self, request):
         queryset = Doctor.objects.all()
