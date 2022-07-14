@@ -42,11 +42,11 @@ urlpatterns = [
     path('registration/doctor/', DoctorRegistrationView.as_view(), name='register-doctor'),
     path('registration/patient/', PatientRegistrationView.as_view(), name='register-patient'),
     # path('profile/',ProfileView.as_view()),
-    path('users/<user_id>/profile/', ProfileAPI.as_view()),
-    path('blogs', views.blog_list),
-    path('blogs/<pk>', views.blog_detail),
-    path('blogs/published', views.blog_list_published),
-    path('profiles',views.ProfileList.as_view(), name='doctors profiles'),
+    path('api/users/<user_id>/profile/', ProfileAPI.as_view()),
+    path('api/blogs', views.blog_list),
+    path('api/blogs/<pk>', views.blog_detail),
+    path('api/blogs/published', views.blog_list_published),
+    path('api/profiles',views.ProfileList.as_view(), name='doctors profiles'),
     
     
 ]

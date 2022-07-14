@@ -418,7 +418,6 @@ class PatientRegistrationView(RegisterView):
 
 class ProfileAPI(APIView):
     renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'profile.html'
     def get(self, request, *args, **kwargs):
         user = get_object_or_404(User, pk=kwargs['user_id'])
         profile_serializer = ProfileSerializer(user.doctor)
