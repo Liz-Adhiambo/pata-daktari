@@ -159,7 +159,7 @@ def all_doctors(request):
 
 
 
-
+# doctor login
 
 @login_required(login_url='core:logindoctor')
 def doctor_profile(request, username):  
