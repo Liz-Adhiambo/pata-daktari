@@ -4,3 +4,4 @@ MTuserauthentication/settings22.py
 assets1/
 sendgrid.env
 sendgrid.env
+.environment
