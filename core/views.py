@@ -212,7 +212,7 @@ def doctorblog_list(request):
 
 class PostListView(ListView):
     model = Doctorblog
-    template_name = 'doctors/doctorblog.html'  # <app>/<model>_<viewtype>.html
+    template_name = 'doctors/doctorblog.html'  
     context_object_name = 'posts'
     paginate_by = 10
     queryset = Doctorblog.objects.all()
