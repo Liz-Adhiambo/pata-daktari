@@ -38,7 +38,7 @@ urlpatterns = [
 
 
 
-    #Registration Urls
+ #Registration Urls
     path('registration/doctor/', DoctorRegistrationView.as_view(), name='register-doctor'),
     path('registration/patient/', PatientRegistrationView.as_view(), name='register-patient'),
     # path('profile/',ProfileView.as_view()),

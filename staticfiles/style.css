@@ -1,0 +1,168 @@
+/* font-family: 'Arima', cursive;
+font-family: 'Boogaloo', cursive;
+font-family: 'Edu TAS Beginner', cursive;
+font-family: 'Great Vibes', cursive;
+font-family: 'Josefin Sans', sans-serif;
+font-family: 'Jost', sans-serif;
+font-family: 'Lexend', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=Arima:wght@100&family=Boogaloo&family=Edu+TAS+Beginner&family=Great+Vibes&family=Josefin+Sans:wght@100&family=Jost:wght@100&family=Lexend:wght@300&family=Merriweather:wght@700&display=swap');
+
+
+body{
+    overflow-x: hidden;
+}
+
+span{
+    font-family: 'Great Vibes', cursive;
+    font-weight: bold;
+    font-size: 40px;
+    color: rgb(127, 218, 235);
+}
+
+.btn-auto{
+    background-color: rgb(127, 218, 235);
+    border-radius: 10px;
+}
+
+
+.formreg{
+    background-color: rgba(0, 0, 0, 0.8);
+    margin-top: 5px;
+ border-radius: 10%;
+ border: 2px solid rgba(4,179,240,1);
+ border-color: rgb(4,240,221) solid;
+ border-right: 3px;
+ color:beige
+   
+    
+}
+
+.sign{
+    font-family: 'Arima', cursive;
+    font-weight: bold;
+}
+.captiony{
+    font-family: 'Arima', cursive;
+    font-size: 20px;
+    color: black;
+}
+
+.login{
+    background-image: url(../static/images/login2.webp);
+    background-repeat: no-repeat;
+    background-image: cover;
+    background-size: cover;
+}
+
+.jumbo{
+    background-image: url('../static/images/blogp1.jpg');
+    height: 400px;
+    
+}
+
+.appo{
+    background-color: #2e5090;
+    color:white;
+    padding:15px;
+    margin-top: 40px;
+    border-radius: 10px;
+
+}
+
+.doctorupdate{
+    position:absolute;
+   width: 1100px;
+    margin-top:-15%;
+    background-color: white;
+    margin-bottom: 10px;
+    
+    
+}
+
+.heading{
+    font-family: 'Merriweather', serif;
+}
+
+
+.lab{
+    background-image: url(../static/images/labtech2.jpg);
+    background-repeat: no-repeat;
+    background-image: cover;
+    background-size: cover;
+}
+.labcol1{
+    position:absolute;
+   
+    margin-top:-15%;
+   
+    margin-bottom: 10px;
+    
+}
+
+.app{
+    background-color: #277ea7;
+    color:white;
+    padding:15px;
+    margin-top: 40px;
+    border-radius: 10px;
+
+}
+ul.messages {                                                                                                                                                                     
+    border: 1px solid;
+    margin: 10px auto;
+    padding: 15px 10px 15px 50px;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    max-width: 460px;
+    color: #eef1ee;
+    background-color: #1cca2a;
+}
+
+.cardy .cardy-block {
+    max-height:200px;
+    min-height:200px; 
+    overflow:auto;
+   
+} 
+
+.btn-outline-auto{
+    background-color: white;
+    border-radius: 10px;
+    border: 3px rgb(127, 218, 235) solid;
+    font-weight: bolder;
+}
+.btn-outline-auto:hover{
+    background-color: rgb(127, 218, 235);
+    border-radius: 10px;
+    border: 3px rgb(127, 218, 235) solid;
+}
+
+
+.pheader{
+    background-image: url(../static/images/pheader3.jpg);
+    background-repeat: no-repeat;
+    background-image: cover;
+    background-size: cover;
+}
+.pheaderd{
+    background-image: url(../static/images/br.webp);
+    background-repeat: no-repeat;
+    background-image: cover;
+    background-size: cover;
+}
+.name{
+    color:white;
+}
+
+.namey{
+    color:#0a345c;
+    font-weight: bolder;
+    font-size: 30px;
+}
+
+.reg{
+    background-image: url(../static/images/lab2.webp);
+    background-repeat: no-repeat;
+    background-image: cover;
+    background-size: cover;
+}
