@@ -25,6 +25,7 @@ from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATABASE_URL='postgresql://postgres:8ZKWnVcCjJAPXfD39fHg@containers-us-west-53.railway.app:7095/railway'
 
 
 # Quick-start development settings - unsuitable for production
@@ -51,7 +52,7 @@ if config('MODE')=="dev":
 else:
    DATABASES = {
        'default': dj_database_url.config(
-           default=config('DATABASE_URL')
+           DATABASE_URL
        )
    }
 
