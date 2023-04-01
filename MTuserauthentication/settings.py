@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 import os
+
+# import django_heroku
+import dj_database_url
+from decouple import config,Csv
+
 from pathlib import Path
 from datetime import timedelta
 import cloudinary
@@ -19,20 +24,41 @@ import cloudinary.api
 from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-47b+%$l=1pe$=$(p^6^0=fry$0^xyg0bio+h!7%r4994n+u86z'
+MODE=config("MODE", default="dev")
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG', default=False, cast=bool)
+# development
+if config('MODE')=="dev":
+   DATABASES = {
+       'default': {
+           'ENGINE': 'django.db.backends.postgresql_psycopg2',
+           'NAME': config('DB_NAME'),
+           'USER': config('DB_USER'),
+           'PASSWORD': config('DB_PASSWORD'),
+           'HOST': config('DB_HOST'),
+           'PORT': '',
+       }
+       
+   }
+# production
+else:
+   DATABASES = {
+       'default': dj_database_url.config(
+           default=config('DATABASE_URL')
+       )
+   }
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
 
 ALLOWED_HOSTS = ['*']
-
 
 # Application definition
 
@@ -75,6 +101,7 @@ INSTALLED_APPS = [
 # CRISPY_TEMPLATE_PACK='bootstrap5'
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -84,7 +111,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
 
 CSRF_TRUSTED_ORIGINS = ['https://web-production-ebd5.up.railway.app']
 
@@ -112,16 +138,7 @@ WSGI_APPLICATION = 'MTuserauthentication.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'patadaktari',
-            'USER': 'liz',
-            'PASSWORD': '1234',
-            
-        }
-        
-    }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -264,4 +281,5 @@ MESSAGE_TAGS = {
 }
 
 
-
+# # Configure Django App for Heroku.
+# django_heroku.settings(locals())
