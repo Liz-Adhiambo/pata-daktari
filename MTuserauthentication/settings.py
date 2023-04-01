@@ -85,6 +85,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
+CSRF_TRUSTED_ORIGINS = ['https://web-production-ebd5.up.railway.app']
+
 ROOT_URLCONF = 'MTuserauthentication.urls'
 
 TEMPLATES = [
