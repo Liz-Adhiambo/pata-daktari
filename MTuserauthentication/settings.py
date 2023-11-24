@@ -25,7 +25,7 @@ from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATABASE_URL='postgresql://postgres:8ZKWnVcCjJAPXfD39fHg@containers-us-west-53.railway.app:7095/railway'
+# DATABASE_URL='postgresql://postgres:8ZKWnVcCjJAPXfD39fHg@containers-us-west-53.railway.app:7095/railway'
 
 
 # Quick-start development settings - unsuitable for production
@@ -36,24 +36,26 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = True
 # # development
 # if config('MODE')=="dev":
-#    DATABASES = {
-#        'default': {
-#            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#            'NAME': config('DB_NAME'),
-#            'USER': config('DB_USER'),
-#            'PASSWORD': config('DB_PASSWORD'),
-#            'HOST': config('DB_HOST'),
-#            'PORT': '',
-#        }
-       
-#    }
+DATABASES = {
+    'default': {
+        'ENGINE': config("db_engine", default='django.db.backends.sqlite3'),
+        'NAME': config('db_name', default='db.sqlite3'),
+        'USER': config("db_user", default=''),
+        'PASSWORD': config("db_password", default=''),
+        # Or an IP Address that your DB is hosted on
+        'HOST': config("db_host", default=''),
+        'PORT': config("db_port", default='')
+
+    }
+}
+
 # # production
 # else:
-DATABASES = {
-       'default': dj_database_url.config(
-           default=DATABASE_URL, conn_max_age=1000
-       )
-   }
+# DATABASES = {
+#        'default': dj_database_url.config(
+#            default=DATABASE_URL, conn_max_age=1000
+#        )
+#    }
 
 # db_from_env = dj_database_url.config(conn_max_age=500)
 # DATABASES['default'].update(db_from_env)

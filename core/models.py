@@ -60,7 +60,7 @@ TIMESLOT_LIST = (
         ('5', '3:00 - 4:00'),
     )
 class Patientappointment(models.Model):
-    doctor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, related_name='doctor_appointments')
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, null=True, related_name='doctor_appointments')
     date = models.DateTimeField()
     time = models.CharField(max_length=50, choices=TIMESLOT_LIST, null=True)
     reason_for_visit = models.CharField(max_length=255, null=True)
