@@ -4,6 +4,5 @@ MTuserauthentication/settingsz.py
 assets1/
 sendgrid.env
 sendgrid.env
-.environment
-
+.env
 daktari/
